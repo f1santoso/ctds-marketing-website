@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#091414">
+  <meta name="description" content="Kenali CTDS — Crypto Trading Decision System. Blueprint sistem multi-agent untuk analisis, perencanaan, pengendalian risiko, pemantauan, dan keputusan trading crypto yang dapat diaudit.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CTDS — Crypto Trading Decision System">
+  <meta property="og:description" content="Dari noise pasar menjadi keputusan trading yang terstruktur. Temukan arsitektur 3 agen + 1 orchestrator dan 6 tahap CTDS.">
+  <title>CTDS — Crypto Trading Decision System | Decision Intelligence, Built for Clarity</title>
+  <!--
+    CTDS MARKETING SITE — SINGLE-FILE EDITION
+    Static HTML + inline CSS + inline JavaScript; no third-party dependencies.
+    Ready for GitHub and Vercel static deployment.
+    IMPORTANT: Configure CONTACT_EMAIL in the script before publishing if you
+    want demo inquiries to open a pre-addressed email. No backend is included.
+    Commercial packages are illustrative possibilities, not active product offers.
+    Source of claims: Multi-Agent Orchestration Report, CTDS Blueprint v2.7.
+  -->
+  <style>
+    :root {
+      --bg:#071111; --bg2:#0b1918; --surface:#102120; --surface2:#122825;
+      --line:rgba(185,237,225,.115); --line-strong:rgba(185,237,225,.22);
+      --ink:#f0f8f5; --muted:#a0b8b1; --muted2:#78948c;
+      --mint:#76f5c9; --mint-deep:#3bd7a5; --cyan:#89dced;
+      --warning:#e2c690; --danger:#e69e99;
+      --radius:19px; --max:1192px;
+    }
+    *,*::before,*::after {box-sizing:border-box}
+    html {scroll-behavior:smooth;scroll-padding-top:93px}
+    body {margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
+    body::before {content:"";position:absolute;top:0;left:0;right:0;height:1180px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 45% 45% at 77% 24%,rgba(32,144,116,.17),transparent 90%),radial-gradient(ellipse 43% 36% at 5% 1%,rgba(10,89,82,.2),transparent 90%)}
+    a {color:inherit;text-decoration:none}
+    button,input,select,textarea {font:inherit}
+    button {cursor:pointer}
+    button:disabled {cursor:not-allowed;opacity:.55}
+    a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible {outline:2px solid var(--mint);outline-offset:4px}
+    ::selection {background:rgba(118,245,201,.32);color:#fff}
+    .container {width:min(calc(100% - 64px),var(--max));margin-inline:auto}
+    .sr-only {position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .skip-link {position:fixed;top:-100px;left:20px;z-index:99;background:var(--mint);color:#05221b;padding:10px 14px;border-radius:8px}
+    .skip-link:focus {top:10px}
+    .scroll-progress {height:2px;background:var(--mint);position:fixed;left:0;top:0;z-index:100;width:0;pointer-events:none}
+    .announcement {border-bottom:1px solid rgba(207,255,240,.07);background:#0c1b19;text-align:center;padding:9px 12px;color:#b9d8ce;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:650}
+    .announcement span {display:inline-block;width:6px;height:6px;border-radius:100%;background:var(--mint);margin-right:9px;box-shadow:0 0 12px var(--mint);vertical-align:2px}
+    .site-header {position:sticky;top:0;z-index:30;background:rgba(7,17,17,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(217,255,242,.08)}
+    .nav-wrap {display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:20px}
+    .brand {display:inline-flex;align-items:center;gap:11px;white-space:nowrap}
+    .brand-mark {display:grid;place-items:center;width:37px;height:37px;border:1px solid rgba(118,245,201,.45);border-radius:11px;background:rgba(118,245,201,.07);box-shadow:0 0 18px rgba(30,167,122,.09)}
+    .brand strong {font-size:19px;letter-spacing:.07em;font-weight:850}
+    .brand small {display:block;font-size:8px;line-height:1.5;letter-spacing:.17em;color:var(--muted);text-transform:uppercase}
+    .nav-links {display:flex;align-items:center;gap:23px}
+    .nav-links a {font-size:12px;font-weight:650;color:#aabdb7;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active {color:var(--mint)}
+    .nav-actions {display:flex;align-items:center;gap:13px}
+    .nav-cta {font-size:12px;font-weight:780;color:#0b2920;background:var(--mint);border-radius:9px;padding:11px 17px;transition:transform .2s,background .2s}
+    .nav-cta:hover,.btn-primary:hover {transform:translateY(-2px);background:#98ffdc}
+    .menu-btn {display:none;color:#e3f5ee;border:1px solid var(--line-strong);background:#10211f;border-radius:9px;padding:7px 9px;line-height:1}
+    .menu-btn svg {display:block}
+    .hero {position:relative;padding:104px 0 92px;border-bottom:1px solid var(--line)}
+    .hero::before {content:"";position:absolute;inset:0;opacity:.4;pointer-events:none;background-image:linear-gradient(to right,rgba(123,208,173,.042) 1px,transparent 1px),linear-gradient(to bottom,rgba(123,208,173,.042) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to right,transparent 5%,#000 65%,transparent 100%)}
+    .hero-grid {display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:53px;position:relative}
+    .eyebrow {display:flex;align-items:center;gap:10px;margin:0 0 24px;color:var(--mint);letter-spacing:.18em;font-size:10px;font-weight:800;text-transform:uppercase}
+    .eyebrow::before {content:"";width:22px;height:1px;background:var(--mint)}
+    .hero h1 {margin:0;max-width:685px;font-size:clamp(42px,5.2vw,77px);letter-spacing:-.07em;line-height:1.085;font-weight:800}
+    .hero h1 em {font-style:normal;color:var(--mint)}
+    .hero-intro {color:#b0c7bf;font-size:16px;line-height:1.85;margin:26px 0 0;max-width:540px}
+    .hero-actions {display:flex;flex-wrap:wrap;gap:11px;margin-top:33px}
+    .btn {display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 19px;border-radius:10px;font-size:12px;font-weight:800;border:1px solid transparent;transition:transform .2s,background .2s,border-color .2s;min-height:48px}
+    .btn-primary {background:var(--mint);color:#06261e}
+    .btn-outline {background:rgba(255,255,255,.025);color:#eaf8f3;border-color:rgba(187,236,219,.25)}
+    .btn-outline:hover {transform:translateY(-2px);border-color:var(--mint);background:rgba(118,245,201,.065)}
+    .btn svg {width:16px;height:16px;flex:none}
+    .hero-note {margin-top:31px;display:flex;flex-wrap:wrap;align-items:center;gap:11px 19px;font-size:11px;color:#91afa5}
+    .note-dot {width:6px;height:6px;display:inline-block;border-radius:50%;background:var(--mint)}
+    .terminal {background:linear-gradient(145deg,#122723,#0b1919 78%);border:1px solid rgba(163,237,206,.19);border-radius:23px;box-shadow:0 28px 100px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.035);overflow:hidden;position:relative;isolation:isolate}
+    .terminal::after {content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 65% 35%,rgba(49,219,166,.065),transparent 54%)}
+    .terminal-head {padding:15px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;background:rgba(5,15,14,.37)}
+    .window-dots {display:flex;gap:6px}.window-dots i {height:7px;width:7px;border-radius:100%;background:#4f756c}.window-dots i:nth-child(2){background:#83a288}.window-dots i:nth-child(3){background:#9cc8b4}
+    .terminal-head .term-title {color:#a5c9bc;font-size:9px;font-weight:800;letter-spacing:.17em}
+    .terminal-head .mini-tag {border:1px solid rgba(118,245,201,.24);color:var(--mint);border-radius:5px;padding:3px 8px;font-size:9px;font-weight:800;letter-spacing:.08em}
+    .terminal-body {padding:23px 25px 24px}
+    .term-kicker {display:flex;justify-content:space-between;gap:10px;font-size:10px;letter-spacing:.13em;color:#87a89d;font-weight:750;text-transform:uppercase}
+    .term-kicker span:last-child {color:var(--mint)}
+    .architecture-viz {position:relative;height:257px;margin:11px 0 0;display:grid;place-items:center;overflow:hidden}
+    .architecture-viz .rings {position:absolute;width:340px;height:250px;max-width:100%;top:0;left:50%;transform:translateX(-50%)}
+    .orbit-node {position:absolute;padding:10px 12px;border:1px solid #32534a;border-radius:11px;background:#112824;box-shadow:0 8px 20px rgba(0,0,0,.23);min-width:112px;z-index:2}
+    .orbit-node b {display:block;font-size:11px;line-height:1.4;color:#e2faf0}.orbit-node span {display:block;font-size:9px;color:#8aada1;letter-spacing:.02em}
+    .orbit-node.node-top {top:3px;left:50%;transform:translateX(-50%)}
+    .orbit-node.node-left {left:0;bottom:25px}
+    .orbit-node.node-right {right:0;bottom:25px}
+    .orbit-core {width:140px;height:140px;border-radius:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:2;border:1px solid rgba(117,245,201,.48);box-shadow:0 0 0 10px rgba(99,232,183,.045),0 0 75px rgba(91,241,186,.09);background:radial-gradient(circle at 40% 25%,#1c5140,#0b2522 75%)}
+    .orbit-core svg {width:23px;height:23px;margin-bottom:7px}
+    .orbit-core b {font-size:13px;letter-spacing:.015em}.orbit-core span {font-size:9px;color:#a9cabc}
+    .term-divider {height:1px;background:var(--line);margin:8px 0 18px}
+    .mini-flow {display:flex;align-items:center;justify-content:space-between;gap:2px}
+    .mini-flow span {display:grid;place-items:center;width:33px;height:33px;border:1px solid rgba(154,225,198,.18);background:rgba(25,63,52,.4);border-radius:7px;color:#b3e2cb;font-size:10px;font-weight:800}
+    .mini-flow i {height:1px;flex:1;background:rgba(118,245,201,.3);min-width:4px}
+    .flow-labels {display:flex;justify-content:space-between;font-size:9px;color:#84a397;letter-spacing:.1em;margin-top:9px}
+    .term-foot {display:flex;align-items:center;gap:9px;color:#78998b;margin-top:23px;font-size:9px;letter-spacing:.045em}
+    .term-foot svg {width:13px;height:13px;color:var(--mint)}
+    .section {padding:105px 0;position:relative}
+    .section-alt {background:linear-gradient(180deg,#0b1918 0%,#0a1716 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .section-head {margin-bottom:40px;max-width:730px}
+    .section-label {color:var(--mint);font-size:10px;text-transform:uppercase;font-weight:800;letter-spacing:.2em;margin:0 0 18px;display:flex;align-items:center;gap:12px}
+    .section-label::after {content:"";width:32px;height:1px;background:rgba(118,245,201,.48)}
+    h2 {font-size:clamp(31px,4.1vw,52px);letter-spacing:-.058em;line-height:1.16;margin:0;font-weight:780}
+    h2 em {color:var(--mint);font-style:normal}
+    .section-desc {margin:19px 0 0;color:var(--muted);max-width:655px;font-size:15px;line-height:1.85}
+    .problem-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+    .problem-card {padding:29px 26px;background:linear-gradient(145deg,#122320,#0d1c1b);border:1px solid var(--line);border-radius:var(--radius);min-height:257px;transition:transform .25s,border-color .25s}
+    .problem-card:hover,.agent-card:hover,.memory-card:hover {transform:translateY(-4px);border-color:rgba(118,245,201,.37)}
+    .card-index {font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;color:#6a9485;margin-bottom:36px;display:flex;align-items:center;gap:9px}
+    .card-index::after {content:"";width:26px;height:1px;background:#517366}
+    .problem-card h3 {font-size:20px;letter-spacing:-.03em;line-height:1.35;margin:0 0 10px}
+    .problem-card p {font-size:12.8px;line-height:1.82;color:var(--muted);margin:0}
+    .solution-band {margin-top:17px;border:1px solid rgba(103,242,183,.28);background:linear-gradient(90deg,rgba(65,208,153,.09),rgba(9,31,29,.25));border-radius:15px;padding:22px 25px;display:flex;align-items:center;gap:18px}
+    .solution-band .glyph {font-size:29px;color:var(--mint)}
+    .solution-band strong {display:block;font-size:16px}
+    .solution-band p {font-size:12px;color:#a8c3b7;margin:5px 0 0}
+    .agents-grid {display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+    .agent-card {position:relative;padding:25px 23px 27px;border:1px solid var(--line);background:#10211f;border-radius:var(--radius);transition:transform .25s,border-color .25s;overflow:hidden}
+    .agent-card.lead {background:linear-gradient(135deg,#164436,#102420 75%);border-color:rgba(113,239,190,.28)}
+    .agent-card.lead::before {content:"";width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,rgba(72,217,161,.14),transparent 70%);position:absolute;right:-80px;top:-90px;pointer-events:none}
+    .agent-top {display:flex;justify-content:space-between;align-items:center;margin-bottom:39px}
+    .agent-icon {display:grid;place-items:center;width:43px;height:43px;border:1px solid rgba(113,239,190,.27);border-radius:11px;background:rgba(113,239,190,.075);color:var(--mint)}
+    .agent-icon svg {width:20px;height:20px}
+    .agent-number {font:700 10px ui-monospace,Consolas,monospace;color:#7baa98}
+    .agent-card h3 {font-size:18px;line-height:1.3;margin:0 0 4px;letter-spacing:-.03em}
+    .agent-role {margin:0 0 17px!important;font-size:10px!important;color:var(--mint)!important;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    .agent-card p {color:var(--muted);font-size:12px;line-height:1.78;margin:0}
+    .agent-card ul {padding:14px 0 0 16px;color:#c3d7ce;font-size:11px;line-height:1.85;margin:10px 0 0;border-top:1px solid var(--line)}
+    .agents-note {margin-top:16px;font-size:11px;color:#839e94}
+    .workflow-layout {display:grid;grid-template-columns:.86fr 1.14fr;gap:22px;align-items:stretch}
+    .stage-tabs {display:grid;gap:10px;align-content:start}
+    .stage-tab {width:100%;display:flex;align-items:center;gap:15px;padding:17px 18px;color:#abc3b9;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.015);border-radius:12px;transition:background .25s,border-color .25s,transform .25s}
+    .stage-tab:hover {transform:translateX(3px);border-color:rgba(118,245,201,.25)}
+    .stage-tab[aria-selected="true"] {background:rgba(62,193,143,.12);border-color:rgba(118,245,201,.46);color:#f0fff7}
+    .stage-number {font:700 11px ui-monospace,Consolas,monospace;border:1px solid var(--line-strong);border-radius:7px;width:36px;height:35px;display:grid;place-items:center;flex:none}
+    .stage-tab[aria-selected="true"] .stage-number {background:var(--mint);color:#09251d;border-color:var(--mint)}
+    .stage-tab b {display:block;font-size:13px;letter-spacing:.035em}.stage-tab small {display:block;font-size:11px;color:#8ca99e;font-weight:500;margin-top:2px}
+    .stage-detail {padding:39px 39px 34px;border-radius:20px;background:radial-gradient(ellipse at 95% 0%,rgba(71,201,149,.105),transparent 55%),#10221f;border:1px solid rgba(147,222,193,.24);min-height:480px;display:flex;flex-direction:column}
+    .stage-detail-top {display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--mint);font-size:10px;letter-spacing:.15em;font-weight:750;text-transform:uppercase}
+    .stage-badge {background:rgba(118,245,201,.095);border:1px solid rgba(118,245,201,.24);border-radius:100px;padding:5px 11px}
+    .stage-icon {width:58px;height:58px;display:grid;place-items:center;border:1px solid rgba(118,245,201,.22);background:rgba(118,245,201,.07);border-radius:15px;color:var(--mint);margin-top:37px}
+    .stage-icon svg {width:27px;height:27px}
+    .stage-detail h3 {margin:22px 0 11px;font-size:35px;letter-spacing:-.047em;line-height:1.16}
+    .stage-detail p {font-size:14px;color:#acc8bc;line-height:1.8;margin:0;max-width:490px}
+    .stage-output {margin-top:auto;border-top:1px solid var(--line);padding-top:22px}
+    .stage-output small {font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#86a99c;font-weight:800}
+    .stage-output strong {display:block;color:#d5eee3;font-size:14px;line-height:1.7;margin-top:6px;font-weight:650}
+    .workflow-footer {margin-top:19px;color:#83a79a;font-size:11px}
+    .strategy-grid {display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .strategy-card {border-radius:14px;background:#10211f;border:1px solid var(--line);padding:23px 19px 25px;display:flex;flex-direction:column;min-height:230px}
+    .strategy-card .symbol {color:var(--mint);font-size:26px;font-weight:300;margin-bottom:29px;line-height:1}
+    .strategy-card h3 {font-size:15px;letter-spacing:-.025em;margin:0 0 8px}.strategy-card p {font-size:11.4px;color:var(--muted);line-height:1.78;margin:0}
+    .strategy-card .micro {margin-top:auto;padding-top:19px;font-size:9px;letter-spacing:.08em;color:#80bd9f;text-transform:uppercase;font-weight:800}
+    .decision-row {margin-top:23px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .decision-box {padding:21px 20px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.015)}
+    .decision-box strong {font-size:12px;letter-spacing:.11em;display:block;margin-bottom:8px}
+    .decision-box p {font-size:11.8px;color:var(--muted);line-height:1.7;margin:0}
+    .decision-box.ready strong {color:var(--mint)}.decision-box.watch strong {color:var(--warning)}.decision-box.skip strong {color:var(--danger)}
+    .memory-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+    .memory-card {padding:26px;border:1px solid var(--line);background:#10211f;border-radius:15px;transition:border-color .25s,transform .25s;min-height:226px}
+    .memory-top {display:flex;justify-content:space-between;align-items:center;color:var(--mint);margin-bottom:26px}
+    .memory-top svg {width:23px;height:23px}
+    .memory-top span {font-size:10px;font-family:ui-monospace,Consolas,monospace;color:#6b9382}
+    .memory-card h3 {margin:0 0 10px;font-size:16px;letter-spacing:-.02em}
+    .memory-card p {margin:0;color:var(--muted);font-size:12px;line-height:1.75}
+    .memory-principle {display:flex;align-items:flex-start;gap:15px;border:1px solid rgba(112,237,183,.3);background:rgba(38,139,104,.09);border-radius:15px;padding:20px 23px;margin-top:15px}
+    .memory-principle svg {width:23px;height:23px;flex:none;color:var(--mint)}
+    .memory-principle p {font-size:12px;color:#bad8cb;margin:0;line-height:1.7}
+    .memory-principle strong {color:var(--ink)}
+    .risk-layout {display:grid;grid-template-columns:.94fr 1.06fr;gap:33px;align-items:start}
+    .risk-layout .section-head {margin-bottom:0}
+    .risk-stats {display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+    .risk-stat {padding:20px 17px;border:1px solid var(--line);border-radius:12px;background:#10221f}
+    .risk-stat strong {display:block;color:var(--mint);font-size:28px;letter-spacing:-.045em;line-height:1.4}.risk-stat span {display:block;font-size:10px;color:#b2c8be;line-height:1.4}
+    .risk-points {margin-top:21px;display:grid;gap:13px}
+    .risk-point {display:flex;gap:12px;align-items:flex-start;color:#b4ccc1;font-size:12px;line-height:1.6}
+    .risk-point svg {width:16px;height:16px;color:var(--mint);flex:none;margin-top:2px}
+    .trust-strip {margin-top:35px;padding:19px 23px;border-radius:12px;border:1px solid var(--line-strong);display:flex;gap:14px;align-items:start;background:rgba(255,255,255,.018);color:#b4cbc1;font-size:12px;line-height:1.75}
+    .trust-strip strong {color:var(--ink)}
+    .trust-strip svg {width:21px;height:21px;color:var(--mint);flex:none}
+    .faq-list {max-width:850px;border-top:1px solid var(--line)}
+    .faq-list details {border-bottom:1px solid var(--line);padding:4px 0}
+    .faq-list summary {cursor:pointer;padding:20px 8px 20px 0;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:14px;font-weight:700}
+    .faq-list summary::-webkit-details-marker{display:none}
+    .faq-list summary svg {width:18px;height:18px;color:var(--mint);flex:none;transition:transform .2s}
+    .faq-list details[open] summary svg {transform:rotate(45deg)}
+    .faq-list details p {margin:0;padding:0 45px 21px 0;color:var(--muted);font-size:12.5px;line-height:1.8}
+    .contact-zone {padding:100px 0 109px;background:radial-gradient(ellipse at 70% 15%,rgba(65,197,149,.12),transparent 55%),#0b1d1a;border-top:1px solid var(--line)}
+    .contact-layout {display:grid;grid-template-columns:.94fr 1.06fr;gap:65px;align-items:start}
+    .contact-zone h2 {font-size:clamp(32px,4.2vw,51px)}
+    .contact-choices {display:flex;flex-direction:column;gap:11px;margin-top:27px}
+    .contact-choice {padding:13px 16px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.024);display:flex;justify-content:space-between;gap:12px;font-size:12px}
+    .contact-choice strong {font-weight:730}.contact-choice span {font-size:10px;color:var(--muted)}
+    .contact-form {border:1px solid rgba(156,231,197,.25);border-radius:19px;padding:30px;background:rgba(9,24,21,.92)}
+    .contact-form h3 {font-size:19px;letter-spacing:-.025em;margin:0 0 6px}
+    .contact-form .form-hint {font-size:11px;color:var(--muted);margin:0 0 21px}
+    .form-row {display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .field {display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+    .field label {color:#d4e8df;font-size:11px;font-weight:700}
+    .field input,.field textarea,.field select {width:100%;border:1px solid var(--line-strong);border-radius:8px;padding:11px 12px;color:var(--ink);background:#0d1b19;font-size:12px;outline:0;transition:border-color .2s;min-height:43px}
+    .field input:focus,.field textarea:focus,.field select:focus {border-color:var(--mint)}
+    .field textarea {min-height:95px;resize:vertical}
+    .field input::placeholder,.field textarea::placeholder {color:#6b897f}
+    .field select option {background:#10211f}
+    .contact-form button[type="submit"] {width:100%;margin-top:3px}
+    .form-disclaimer {font-size:10px;line-height:1.7;color:#819e92;margin:13px 0 0}
+    .inquiry-result {display:none;margin-top:16px;padding:14px;background:rgba(102,234,179,.07);border:1px solid rgba(118,245,201,.3);border-radius:11px}
+    .inquiry-result.visible {display:block}
+    .inquiry-result strong {font-size:12px;color:var(--mint)}
+    .inquiry-result p {margin:6px 0 11px;font-size:11px;color:#b1cfc2;line-height:1.6}
+    .inquiry-result textarea {width:100%;min-height:125px;padding:10px;border-radius:8px;border:1px solid var(--line-strong);background:#091915;color:#c4e9d9;font-size:11px;resize:vertical}
+    .inquiry-result button {margin-top:10px;background:rgba(118,245,201,.09);border:1px solid rgba(118,245,201,.4);border-radius:8px;color:var(--mint);padding:9px 12px;font-weight:700;font-size:11px}
+    .site-footer {background:#06100f;border-top:1px solid var(--line);padding:31px 0}
+    .footer-inner {display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .footer-copy {font-size:10px;color:#809b90;line-height:1.75}
+    .footer-links {display:flex;gap:21px;align-items:center;flex-wrap:wrap;font-size:11px;color:#b4cabc}
+    .footer-links a:hover {color:var(--mint)}
+    .toast {position:fixed;right:24px;bottom:24px;background:#1c4338;border:1px solid rgba(118,245,201,.4);color:#e6fff4;border-radius:10px;padding:12px 18px;font-size:12px;box-shadow:0 15px 35px rgba(0,0,0,.35);z-index:90;opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s}
+    .toast.visible {opacity:1;transform:translateY(0)}
+    .reveal {opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.in-view {opacity:1;transform:translateY(0)}
+    @media(max-width:1090px){.nav-links{gap:13px}.nav-links a{font-size:11px}.hero-grid{gap:23px}.agents-grid{grid-template-columns:repeat(2,1fr)}.strategy-grid{grid-template-columns:repeat(3,1fr)}.hero h1{font-size:clamp(40px,5vw,63px)}}
+    @media(max-width:800px){.container{width:min(calc(100% - 38px),var(--max))}.nav-links{display:none;position:absolute;top:74px;left:0;right:0;padding:20px;border-bottom:1px solid var(--line);background:#0b1918;flex-direction:column;align-items:stretch;gap:0;box-shadow:0 18px 30px rgba(0,0,0,.3)}.nav-links.is-open{display:flex}.nav-links a{padding:13px 10px;font-size:13px}.menu-btn{display:block}.nav-actions{margin-left:auto}.hero{padding:75px 0 70px}.hero-grid{grid-template-columns:1fr;gap:49px}.hero h1{max-width:650px}.terminal{max-width:560px;width:100%;margin:auto}.section{padding:78px 0}.problem-grid{grid-template-columns:1fr}.problem-card{min-height:0}.card-index{margin-bottom:26px}.workflow-layout{grid-template-columns:1fr}.stage-tabs{grid-template-columns:repeat(3,1fr)}.stage-tab{padding:12px;gap:9px}.stage-number{width:28px;height:30px;font-size:10px}.stage-tab b{font-size:11px}.stage-tab small{display:none}.stage-detail{min-height:395px}.memory-grid{grid-template-columns:repeat(2,1fr)}.risk-layout{grid-template-columns:1fr}.contact-layout{grid-template-columns:1fr;gap:34px}}
+    @media(max-width:540px){.announcement{font-size:9px;line-height:1.6}.container{width:calc(100% - 34px)}.brand strong{font-size:17px}.brand small{font-size:7px}.nav-cta{padding:10px 11px;font-size:10px}.hero h1{font-size:clamp(39px,11.5vw,55px)}.hero-intro{font-size:14px}.hero-actions{flex-direction:column;align-items:stretch}.hero-actions .btn{width:100%}.hero-note{font-size:10px}.terminal-body{padding:19px 13px}.terminal-head{padding:13px 14px}.architecture-viz{height:245px}.orbit-node{min-width:90px;padding:8px}.orbit-node b{font-size:10px}.orbit-node span{font-size:8px}.orbit-core{width:119px;height:119px}.orbit-node.node-left{bottom:18px}.orbit-node.node-right{bottom:18px}.section{padding:71px 0}.section-head{margin-bottom:28px}.section-desc{font-size:13px}.agents-grid,.memory-grid,.decision-row{grid-template-columns:1fr}.agent-top{margin-bottom:22px}.agent-card{padding:22px}.strategy-grid{grid-template-columns:repeat(2,1fr)}.strategy-card{min-height:210px;padding:20px 16px}.stage-detail{padding:27px 21px;min-height:398px}.stage-detail h3{font-size:29px}.stage-tabs{grid-template-columns:repeat(2,1fr)}.stage-tab{min-height:58px}.risk-stats{grid-template-columns:repeat(2,1fr)}.form-row{grid-template-columns:1fr;gap:0}.contact-form{padding:22px}.contact-choice{flex-direction:column;gap:2px}.footer-inner{flex-direction:column;align-items:flex-start}.solution-band{align-items:flex-start;padding:18px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+  </style>
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+  <a class="skip-link" href="#main">Langsung ke konten utama</a>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="announcement"><span></span>PRODUCT BLUEPRINT · CTDS v2.7 · PRIVATE PREVIEW / IN DEVELOPMENT</div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="#top" class="brand" aria-label="CTDS — Beranda">
+        <span class="brand-mark" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2.5 21 7.5v9L12 21.5l-9-5v-9l9-5Z" stroke="#76f5c9" stroke-width="1.4"/><path d="M6.5 15.2 10 11.7l2.4 1.9 4.9-5.2" stroke="#76f5c9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.3" cy="8.4" r="1.1" fill="#76f5c9"/></svg></span>
+        <span><strong>CTDS</strong><small>Crypto Trading Decision System</small></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Navigasi utama">
+        <a href="#masalah">Masalah</a><a href="#agen">Tim Agen</a><a href="#workflow">Cara Kerja</a><a href="#kemampuan">Kemampuan</a><a href="#memori">Memori</a><a href="#proteksi">Keamanan</a>
+      </nav>
+      <div class="nav-actions"><a href="#hubungi" class="nav-cta">Diskusikan CTDS ↗</a><button id="menuBtn" class="menu-btn" aria-label="Buka menu navigasi" aria-controls="navLinks" aria-expanded="false"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="top" class="hero" aria-labelledby="heroTitle">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Decision Intelligence for Digital Assets</p>
+          <h1 id="heroTitle">Pasar bergerak cepat.<br><em>Keputusan harus lebih cerdas.</em></h1>
+          <p class="hero-intro">Perkenalkan <strong>CTDS — Crypto Trading Decision System.</strong> Rancangan sistem multi-agent yang mengubah kompleksitas pasar crypto menjadi peluang terstruktur, trading plan yang jelas, dan keputusan yang dikawal disiplin risiko.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#workflow">Jelajahi cara kerja <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+            <a class="btn btn-outline" href="#agen">Kenali tim agen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="m8 5 7 7-7 7"/></svg></a>
+          </div>
+          <div class="hero-note"><span><span class="note-dot"></span> Dirancang untuk pemantauan 24/7</span><span>3 Agen + 1 Orchestrator</span><span>Manual-first execution</span></div>
+        </div>
+        <div class="terminal" aria-label="Ilustrasi arsitektur multi-agent CTDS, bukan data trading aktual">
+          <div class="terminal-head"><div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div><span class="term-title">CTDS / SYSTEM ARCHITECTURE</span><span class="mini-tag">CONCEPT</span></div>
+          <div class="terminal-body">
+            <div class="term-kicker"><span>Intelligence orchestration</span><span>● Design spec</span></div>
+            <div class="architecture-viz">
+              <svg class="rings" viewBox="0 0 340 250" fill="none" aria-hidden="true"><ellipse cx="170" cy="132" rx="146" ry="100" stroke="#76f5c9" stroke-opacity=".12" stroke-dasharray="4 7"/><ellipse cx="170" cy="132" rx="103" ry="76" stroke="#76f5c9" stroke-opacity=".16"/><path d="M170 74V35M116 175 79 200M223 175l36 25" stroke="#76f5c9" stroke-opacity=".6" stroke-width="1.5" stroke-dasharray="4 5"/><circle cx="170" cy="35" r="3" fill="#76f5c9"/><circle cx="79" cy="200" r="3" fill="#76f5c9"/><circle cx="259" cy="200" r="3" fill="#76f5c9"/></svg>
+              <div class="orbit-node node-top"><b>01 · Researcher</b><span>Market &amp; data</span></div>
+              <div class="orbit-node node-left"><b>02 · Architect</b><span>Signal &amp; plan</span></div>
+              <div class="orbit-node node-right"><b>03 · Reviewer</b><span>Risk &amp; quality</span></div>
+              <div class="orbit-core"><svg viewBox="0 0 24 24" fill="none" stroke="#76f5c9" stroke-width="1.5"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Zm0 7v6m-3-3h6"/></svg><b>Orchestrator</b><span>Coordination layer</span></div>
+            </div>
+            <div class="term-divider"></div>
+            <div class="term-kicker"><span>6-stage decision loop</span><span>SCAN → DECIDE</span></div>
+            <div class="mini-flow" aria-hidden="true"><span>01</span><i></i><span>02</span><i></i><span>03</span><i></i><span>04</span><i></i><span>05</span><i></i><span>06</span></div>
+            <div class="flow-labels"><span>SCAN</span><span>SIGNAL</span><span>PLAN</span><span>RISK</span><span>WATCH</span><span>DECIDE</span></div>
+            <div class="term-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Diagram konseptual · Bukan monitoring pasar live</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="masalah" aria-labelledby="problemTitle">
+      <div class="container">
+        <div class="section-head reveal"><p class="section-label">01 / The Problem</p><h2 id="problemTitle">Trader tidak kekurangan data.<br><em>Trader kekurangan kejelasan.</em></h2><p class="section-desc">Grafik, berita, notifikasi, dan opini datang tanpa henti. Tetapi mengubah semuanya menjadi keputusan yang konsisten, terukur, dan dapat dipertanggungjawabkan adalah tantangan yang berbeda.</p></div>
+        <div class="problem-grid">
+          <article class="problem-card reveal"><div class="card-index">CHALLENGE 01</div><h3>Market noise yang tidak pernah berhenti</h3><p>Terlalu banyak pasangan crypto, timeframe, dan berita untuk dianalisis secara manual sepanjang waktu. Peluang bisa terlewat; sinyal yang lemah bisa terlihat menarik.</p></article>
+          <article class="problem-card reveal"><div class="card-index">CHALLENGE 02</div><h3>Keputusan cepat, disiplin risiko tertinggal</h3><p>Entry tanpa skenario invalidasi, stop loss, posisi portofolio, dan estimasi biaya dapat menghasilkan keputusan yang tidak sesuai kapasitas risiko.</p></article>
+          <article class="problem-card reveal"><div class="card-index">CHALLENGE 03</div><h3>Alasan trading sulit ditelusuri</h3><p>Tanpa catatan aturan, data, dan perubahan kondisi, sulit mengetahui mengapa sebuah sinyal muncul, mengapa dilewati, atau apa yang perlu diperbaiki.</p></article>
+        </div>
+        <div class="solution-band reveal"><div class="glyph" aria-hidden="true">↗</div><div><strong>CTDS menghubungkan analisis, rencana, risiko, dan keputusan dalam satu alur yang dapat diaudit.</strong><p>Bukan sekadar mesin pemberi sinyal. Ini adalah rancangan decision-support system yang mengutamakan proses dan transparansi.</p></div></div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="agen" aria-labelledby="agentTitle">
+      <div class="container">
+        <div class="section-head reveal"><p class="section-label">02 / Multi-Agent Architecture</p><h2 id="agentTitle">Satu tujuan. <em>Empat peran</em> yang saling melengkapi.</h2><p class="section-desc">CTDS dirancang dengan sebuah Orchestrator yang mengoordinasikan tiga peran agen spesialis: meneliti, merancang, dan menguji kualitas. Setiap tahap dirancang untuk memiliki tanggung jawab serta jejak keputusan yang jelas.</p></div>
+        <div class="agents-grid">
+          <article class="agent-card lead reveal"><div class="agent-top"><div class="agent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="2" width="6" height="6" rx="2"/><rect x="2" y="16" width="7" height="6" rx="2"/><rect x="15" y="16" width="7" height="6" rx="2"/><path d="M12 8v4M5.5 16v-4h13v4"/></svg></div><span class="agent-number">LEAD</span></div><h3>Orchestrator</h3><p class="agent-role">The Coordination Brain</p><p>Menjaga semua agen bekerja sebagai satu sistem: mengatur alur, mendistribusikan tugas, menyatukan hasil, dan memastikan keputusan tidak melewati quality gate.</p><ul><li>Koordinasi lintas tahap</li><li>Prioritas &amp; eskalasi risiko</li><li>Jejak keputusan terintegrasi</li></ul></article>
+          <article class="agent-card reveal"><div class="agent-top"><div class="agent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M8 11l2-2 2 2 2-3"/></svg></div><span class="agent-number">AGENT 01</span></div><h3>Researcher</h3><p class="agent-role">Market Intelligence</p><p>Mengumpulkan dan memvalidasi konteks pasar: harga, volume, struktur, likuiditas, market cap, berita, serta kualitas dan waktu ketersediaan data.</p><ul><li>Market scanning</li><li>Validasi bukti &amp; sumber</li><li>Analisis struktur pasar</li></ul></article>
+          <article class="agent-card reveal"><div class="agent-top"><div class="agent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3h14v18H5zM9 8h6M9 12h6M9 16h4"/><path d="m16 16 2 2 3-4"/></svg></div><span class="agent-number">AGENT 02</span></div><h3>Solution Architect</h3><p class="agent-role">Strategy &amp; Planning</p><p>Menerjemahkan hasil riset menjadi setup yang terukur, ranking peluang, rencana entry/stop/target, dan parameter keputusan yang eksplisit.</p><ul><li>Lima modul strategi</li><li>Signal quality scoring</li><li>Trading plan terstruktur</li></ul></article>
+          <article class="agent-card reveal"><div class="agent-top"><div class="agent-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m12 2 8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></div><span class="agent-number">AGENT 03</span></div><h3>Quality Reviewer</h3><p class="agent-role">Risk &amp; Integrity</p><p>Menguji kelengkapan data, konflik logika, eksposur, batas risiko, serta penyebab penolakan agar sinyal lemah tidak tampak sebagai peluang layak.</p><ul><li>Hard risk gates</li><li>Audit &amp; validasi</li><li>Fail-closed safeguards</li></ul></article>
+        </div>
+        <p class="agents-note">* Peran ini menggambarkan rancangan orkestrasi fungsional CTDS. Belum merupakan klaim tiga agen AI otonom yang telah berjalan di produksi.</p>
+      </div>
+    </section>
+
+    <section class="section" id="workflow" aria-labelledby="flowTitle">
+      <div class="container">
+        <div class="section-head reveal"><p class="section-label">03 / The Six-Stage Engine</p><h2 id="flowTitle">Enam tahap. <em>Satu siklus keputusan.</em></h2><p class="section-desc">Dari menemukan peluang sampai memutuskan tindakan. Pilih setiap tahap untuk melihat apa yang akan dilakukan CTDS dan keluaran yang diharapkan.</p></div>
+        <div class="workflow-layout reveal">
+          <div class="stage-tabs" role="tablist" aria-label="Enam tahap CTDS" id="stageTabs">
+            <button class="stage-tab" role="tab" id="stageTab0" aria-controls="stagePanel" aria-selected="true" tabindex="0" data-stage="0"><span class="stage-number">01</span><span><b>SCAN</b><small>Membaca keseluruhan pasar</small></span></button>
+            <button class="stage-tab" role="tab" id="stageTab1" aria-controls="stagePanel" aria-selected="false" tabindex="-1" data-stage="1"><span class="stage-number">02</span><span><b>SINYAL</b><small>Menyaring peluang potensial</small></span></button>
+            <button class="stage-tab" role="tab" id="stageTab2" aria-controls="stagePanel" aria-selected="false" tabindex="-1" data-stage="2"><span class="stage-number">03</span><span><b>RENCANA</b><small>Merumuskan trading plan</small></span></button>
+            <button class="stage-tab" role="tab" id="stageTab3" aria-controls="stagePanel" aria-selected="false" tabindex="-1" data-stage="3"><span class="stage-number">04</span><span><b>RISIKO</b><small>Memeriksa seluruh batas risiko</small></span></button>
+            <button class="stage-tab" role="tab" id="stageTab4" aria-controls="stagePanel" aria-selected="false" tabindex="-1" data-stage="4"><span class="stage-number">05</span><span><b>MONITOR</b><small>Mengawasi perubahan kondisi</small></span></button>
+            <button class="stage-tab" role="tab" id="stageTab5" aria-controls="stagePanel" aria-selected="false" tabindex="-1" data-stage="5"><span class="stage-number">06</span><span><b>KEPUTUSAN</b><small>Memberi rekomendasi yang jelas</small></span></button>
+          </div>
+          <div class="stage-detail" role="tabpanel" id="stagePanel" aria-labelledby="stageTab0" tabindex="0" aria-live="polite">
+            <div class="stage-detail-top"><span id="stageKicker">PHASE 01 / DISCOVERY</span><span class="stage-badge" id="stageTag">MARKET CONTEXT</span></div>
+            <div class="stage-icon" id="stageIcon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg></div>
+            <h3 id="stageTitle">Temukan yang penting. Abaikan sisanya.</h3>
+            <p id="stageText">Memantau seluruh pasangan USDT yang memenuhi syarat pada Binance Spot. Menggabungkan harga, volume, kondisi tren, likuiditas, market cap, serta berita yang relevan untuk menyusun universe kandidat.</p>
+            <div class="stage-output"><small>EXPECTED OUTPUT</small><strong id="stageOutput">Daftar kandidat pasar beserta kondisi dan sumber datanya.</strong></div>
+          </div>
+        </div>
+        <p class="workflow-footer">MONITOR bersifat lintas tahap: desainnya mengawasi pasar, posisi, data, dan risiko secara berkelanjutan, bukan menunggu satu proses batch selesai.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="kemampuan" aria-labelledby="capTitle">
+      <div class="container">
+        <div class="section-head reveal"><p class="section-label">04 / Strategy Intelligence</p><h2 id="capTitle">Lima cara membaca peluang.<br><em>Satu standar kualitas.</em></h2><p class="section-desc">Strategi yang berbeda, disiplin penilaian yang sama. Setiap peluang dirancang melewati validasi struktur multi-timeframe, kelayakan eksekusi, dan pemeriksaan risiko sebelum memperoleh status.</p></div>
+        <div class="strategy-grid">
+          <article class="strategy-card reveal"><span class="symbol">↗</span><h3>Breakout</h3><p>Mendeteksi penembusan resistance terkonfirmasi, divalidasi oleh penutupan candle dan buffer berbasis ATR.</p><span class="micro">BOS WAJIB</span></article>
+          <article class="strategy-card reveal"><span class="symbol">↘↗</span><h3>Pullback</h3><p>Mencari pemulihan harga dari area support dalam tren bullish, bukan sekadar membeli saat harga turun.</p><span class="micro">BOS KONDISIONAL</span></article>
+          <article class="strategy-card reveal"><span class="symbol">⤴</span><h3>Momentum</h3><p>Menilai percepatan pergerakan, kekuatan candle, dan konfirmasi aktivitas perdagangan.</p><span class="micro">BOS KONDISIONAL</span></article>
+          <article class="strategy-card reveal"><span class="symbol">⇢</span><h3>Continuation</h3><p>Mencari kelanjutan tren setelah konsolidasi dengan konfirmasi penembusan struktur yang relevan.</p><span class="micro">BOS WAJIB</span></article>
+          <article class="strategy-card reveal"><span class="symbol">⟲</span><h3>Reversal</h3><p>Mengamati peralihan struktur lokal menuju bullish, selama struktur besar 1D dan 4H tetap bullish.</p><span class="micro">BOS WAJIB</span></article>
+        </div>
+        <div class="section-head reveal" style="margin-top:75px;margin-bottom:26px"><p class="section-label">Clarity by Design</p><h2 style="font-size:clamp(28px,3.4vw,40px)">Bukan hanya sinyal.<br><em>Rekomendasi yang bisa dijelaskan.</em></h2></div>
+        <div class="decision-row">
+          <div class="decision-box ready reveal"><strong>EKSEKUSI · MANUAL</strong><p>Kriteria setup, trading plan, dan seluruh risk gate terpenuhi. Pengguna tetap mengambil keputusan serta melakukan order sendiri.</p></div>
+          <div class="decision-box watch reveal"><strong>PANTAU</strong><p>Peluang masih relevan, tetapi membutuhkan konfirmasi tambahan, misalnya struktur atau candle close.</p></div>
+          <div class="decision-box skip reveal"><strong>LEWATI</strong><p>Setup tidak layak, invalid, atau gagal pemeriksaan. Data atau sistem bermasalah menghasilkan blokir operasional terpisah.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="memori" aria-labelledby="memoryTitle">
+      <div class="container">
+        <div class="section-head reveal"><p class="section-label">05 / System Memory Blueprint</p><h2 id="memoryTitle">Sistem yang cerdas perlu <em>memori yang bisa dipercaya.</em></h2><p class="section-desc">Memori CTDS bukan sekadar riwayat chat. Yang disimpan adalah konteks dan bukti operasional agar keputusan dapat dilacak, evaluasi berulang tetap konsisten, dan pengguna memahami apa yang terjadi.</p></div>
+        <div class="memory-grid">
+          <article class="memory-card reveal"><div class="memory-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16v14H4zM8 3v6M16 3v6M4 11h16"/></svg><span>MEM / 01</span></div><h3>Market &amp; Signal Memory</h3><p>Snapshot harga/volume, timeframe, indikator, struktur HH/HL, pivot, BOS, scoring, kandidat, serta waktu informasi tersedia.</p></article>
+          <article class="memory-card reveal"><div class="memory-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M7 15h5"/></svg><span>MEM / 02</span></div><h3>Portfolio &amp; Risk Memory</h3><p>Saldo, posisi dan biaya perolehan, stop loss, nilai equity, arus dana, exposure, batas kerugian, dan status risk lock.</p></article>
+          <article class="memory-card reveal"><div class="memory-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3H4v18h16V3h-4M9 2h6v4H9zM8 11h8M8 15h8"/></svg><span>MEM / 03</span></div><h3>Decision &amp; Audit Memory</h3><p>ID keputusan, alasan lulus/gagal, setup snapshot, versi aturan, status EKSEKUSI/PANTAU/LEWATI, masa berlaku, dan histori perubahan.</p></article>
+          <article class="memory-card reveal"><div class="memory-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 3M3 12h2"/></svg><span>MEM / 04</span></div><h3>Experiment &amp; Model Memory</h3><p>Parameter final, kandidat eksperimen, hasil backtest, data split, konfigurasi, code version, checksum dataset, dan alasan pemilihan.</p></article>
+          <article class="memory-card reveal"><div class="memory-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16v12H4zM8 10h8M8 14h5M7 3v3M17 3v3"/></svg><span>MEM / 05</span></div><h3>News &amp; Provenance Memory</h3><p>Berita dan event penting, sumber, waktu publikasi, waktu terdeteksi, identitas aset, riwayat depeg, dan kualitas data.</p></article>
+          <article class="memory-card reveal"><div class="memory-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 5-7 8-7s7 2 8 7"/></svg><span>MEM / 06</span></div><h3>Preferences &amp; Policy Memory</h3><p>Preferensi alert, watchlist, profil akses, kebijakan risiko yang disetujui, pengaturan notifikasi, serta histori perubahan persetujuan.</p></article>
+        </div>
+        <div class="memory-principle reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m12 2 8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4Z"/><path d="M9 12h6m-3-3v6"/></svg><p><strong>Prinsip keamanan memori:</strong> simpan hanya data yang diperlukan, bedakan fakta dari parameter eksperimen, catat sumber dan timestamp, gunakan akses berbasis peran serta kebijakan retensi. API key dan kredensial sensitif tidak boleh disimpan sebagai plaintext di browser atau log; pada implementasi, gunakan penyimpanan secret yang terlindungi.</p></div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="proteksi" aria-labelledby="riskTitle">
+      <div class="container risk-layout">
+        <div class="section-head reveal"><p class="section-label">06 / Built with Discipline</p><h2 id="riskTitle">Kepercayaan bukan berasal dari <em>janji profit.</em></h2><p class="section-desc">CTDS dirancang untuk memaksa keputusan melewati pemeriksaan risiko yang eksplisit. Scoring tinggi tidak dapat menembus hard gate yang gagal.</p><div class="risk-points"><div class="risk-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 12 5 5L20 6"/></svg><span><strong>LONG-only</strong> pada Binance Spot, tanpa leverage atau auto-order dalam spesifikasi ini.</span></div><div class="risk-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 12 5 5L20 6"/></svg><span><strong>Risk-aware by design:</strong> rencana entry, stop, target, dan R/R bersih sebelum approval.</span></div><div class="risk-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 12 5 5L20 6"/></svg><span><strong>Fail-closed:</strong> data stale, risiko tidak diketahui, atau limit terlampaui berarti tidak ada persetujuan entry.</span></div><div class="risk-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 12 5 5L20 6"/></svg><span><strong>Read-only account access:</strong> rancangan tidak memerlukan permission untuk mengirim order.</span></div></div></div>
+        <div class="reveal"><div class="risk-stats"><div class="risk-stat"><strong>1%</strong><span>Risiko per transaksi</span></div><div class="risk-stat"><strong>15%</strong><span>Maks. alokasi per coin</span></div><div class="risk-stat"><strong>30%</strong><span>Maks. total exposure</span></div><div class="risk-stat"><strong>4%</strong><span>Maks. aggregate risk</span></div><div class="risk-stat"><strong>2%</strong><span>Batas rugi harian</span></div><div class="risk-stat"><strong>10%</strong><span>Batas rugi dari modal awal tersesuaikan</span></div></div><div class="trust-strip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 11v6m0-10v1"/></svg><span><strong>Transparansi status:</strong> angka di atas merupakan kebijakan risiko desain yang telah disepakati, bukan performa atau jaminan pembatasan kerugian aktual. CTDS masih berada pada tahap blueprint/validasi; backtesting, paper trading, dan deployment produksi belum dinyatakan selesai.</span></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faqTitle">
+      <div class="container"><div class="section-head reveal"><p class="section-label">07 / Frequently Asked Questions</p><h2 id="faqTitle">Pertanyaan yang <em>paling penting.</em></h2></div>
+        <div class="faq-list reveal">
+          <details><summary>Apa sebenarnya CTDS? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></summary><p>CTDS adalah rancangan Crypto Trading Decision System berbasis multi-agent untuk membantu mencari, menilai, merencanakan, mengawasi, dan memutuskan peluang trading dengan aturan yang konsisten serta jejak audit.</p></details>
+          <details><summary>Apakah CTDS otomatis membeli atau menjual crypto? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></summary><p>Tidak. Dalam blueprint saat ini, CTDS hanya menghasilkan rekomendasi dan trading plan. Pengguna melakukan eksekusi manual. Akses Binance dirancang dengan permission baca saja.</p></details>
+          <details><summary>Apakah CTDS menjamin keuntungan atau akurasi tertentu? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></summary><p>Tidak. Tidak ada strategi trading yang menjamin keuntungan. Sampai Blueprint v2.7, belum ada hasil backtest, paper trading, atau statistik kinerja terverifikasi yang dapat dijadikan klaim profitabilitas.</p></details>
+          <details><summary>Apa yang membedakan CTDS dari indikator atau sinyal biasa? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></summary><p>CTDS menyatukan enam proses—SCAN, SINYAL, RENCANA, RISIKO, MONITOR, dan KEPUTUSAN—dengan multi-timeframe market structure, pemeriksaan posisi, pengendalian risiko portofolio, pelacakan keputusan, dan rencana notifikasi.</p></details>
+          <details><summary>Bagaimana calon pengguna dapat memperoleh akses? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></summary><p>CTDS masih dalam fase pengembangan dan validasi. Pilot terbatas, layanan berlangganan, atau implementasi khusus adalah opsi komersial yang dapat dibahas setelah kesiapan produk, keamanan, performa, dan persyaratan operasional diverifikasi.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-zone" id="hubungi" aria-labelledby="contactTitle">
+      <div class="container contact-layout">
+        <div class="reveal"><p class="section-label">08 / Start a Conversation</p><h2 id="contactTitle">Bangun keputusan yang lebih terstruktur. <em>Mulai dari percakapan.</em></h2><p class="section-desc">Ingin mengeksplorasi CTDS untuk kebutuhan trading personal, tim analis, atau implementasi khusus? Sampaikan minatmu untuk menyiapkan diskusi produk dan roadmap validasi.</p><div class="contact-choices"><div class="contact-choice"><strong>Product Walkthrough</strong><span>Kenali konsep dan alur kerja</span></div><div class="contact-choice"><strong>Early-Access Interest</strong><span>Minat mengikuti tahap evaluasi berikutnya</span></div><div class="contact-choice"><strong>Solution Partnership</strong><span>Diskusi peluang kerja sama dan implementasi</span></div></div><p class="agents-note" style="margin-top:18px">Model akses, skema biaya, dan ketersediaan komersial masih dalam perencanaan.</p></div>
+        <div class="contact-form reveal"><h3>Jadwalkan pembicaraan tentang CTDS</h3><p class="form-hint">Isi minatmu. Halaman statis ini menyiapkan pesan email tanpa menyimpan informasi di server.</p>
+          <form id="inquiryForm">
+            <div class="form-row"><div class="field"><label for="contactName">Nama *</label><input id="contactName" name="name" maxlength="90" placeholder="Nama Anda" autocomplete="name" required></div><div class="field"><label for="contactEmail">Email *</label><input id="contactEmail" name="email" type="email" maxlength="150" placeholder="nama@perusahaan.com" autocomplete="email" required></div></div>
+            <div class="field"><label for="contactIntent">Topik diskusi *</label><select id="contactIntent" name="intent" required><option value="" disabled selected>Pilih topik</option><option value="Product walkthrough">Product walkthrough</option><option value="Early-access interest">Early-access interest</option><option value="Partnership / licensing">Partnership / licensing</option><option value="Custom implementation">Custom implementation</option></select></div>
+            <div class="field"><label for="contactNotes">Apa yang ingin Anda diskusikan?</label><textarea id="contactNotes" name="notes" maxlength="1100" placeholder="Ceritakan kebutuhan atau pertanyaan Anda..."></textarea></div>
+            <button class="btn btn-primary" type="submit">Siapkan permintaan <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <p class="form-disclaimer">Tidak ada data yang dikirim ke server melalui halaman ini. Pengiriman melalui email hanya diaktifkan jika pemilik website mengonfigurasi alamat tujuan.</p>
+          </form>
+          <div class="inquiry-result" id="inquiryResult" aria-live="polite"><strong>Pesan permintaan siap</strong><p>Salin pesan berikut dan kirim melalui saluran kontak CTDS yang tersedia.</p><textarea id="inquiryDraft" readonly aria-label="Pesan permintaan yang sudah disusun"></textarea><button type="button" id="copyInquiry">Salin pesan</button></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><a href="#top" class="brand" aria-label="Kembali ke atas"><span class="brand-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#76f5c9" stroke-width="1.5"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Z"/><path d="m7 15 4-4 2 2 4-5"/></svg></span><span><strong>CTDS</strong><small>Clarity. Discipline. Decision.</small></span></a><div class="footer-copy">© <span id="copyrightYear">2026</span> CTDS · Concept blueprint v2.7<br>Materi produk dalam pengembangan. Bukan nasihat investasi atau jaminan hasil.</div><div class="footer-links"><a href="#workflow">Workflow</a><a href="#memori">Memory</a><a href="#faq">FAQ</a><a href="#top">Ke atas ↑</a></div></div></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+    // CONFIG: Isi alamat email bisnis CTDS sebelum publikasi untuk mengaktifkan email bertujuan.
+    // Contoh: const CONTACT_EMAIL = "hello@domain-anda.com";
+    const CONTACT_EMAIL = "";
+
+    const svgIcons = {
+      scan:'<circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/>',
+      signal:'<path d="M3 17h4l3-9 4 12 3-7h4"/>',
+      plan:'<path d="M5 3h14v18H5zM9 8h6M9 12h6M9 16h4"/>',
+      risk:'<path d="m12 2 8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4Z"/><path d="m9 12 2 2 4-4"/>',
+      monitor:'<path d="M3 12h4l3-6 4 12 3-6h4"/><circle cx="12" cy="12" r="10"/>',
+      decision:'<path d="m4 12 5 5L20 6"/><circle cx="12" cy="12" r="10"/>'
+    };
+    const stages = [
+      {name:'SCAN',kicker:'PHASE 01 / DISCOVERY',tag:'MARKET CONTEXT',icon:'scan',title:'Temukan yang penting. Abaikan sisanya.',text:'Memantau seluruh pasangan USDT yang memenuhi syarat pada Binance Spot. Menggabungkan harga, volume, kondisi tren, likuiditas, market cap, serta berita yang relevan untuk menyusun universe kandidat.',output:'Daftar kandidat pasar beserta kondisi dan sumber datanya.'},
+      {name:'SINYAL',kicker:'PHASE 02 / INTELLIGENCE',tag:'FIVE STRATEGIES',icon:'signal',title:'Dari pergerakan menjadi peluang.',text:'Mengevaluasi Breakout, Pullback, Momentum, Trend Continuation, dan Reversal. Kandidat diperingkat melalui struktur pasar, kualitas pola, volume, momentum, dan kondisi eksekusi.',output:'Sinyal terurut dengan alasan, strategi, timeframe, dan status konfirmasi.'},
+      {name:'RENCANA',kicker:'PHASE 03 / PREPARATION',tag:'TRADE BLUEPRINT',icon:'plan',title:'Setiap peluang perlu rencana.',text:'Menyusun zona entry, stop loss berbasis struktur, target profit, invalidasi setup, estimasi biaya, serta rasio risk/reward. Rencana yang belum lengkap tidak dapat memperoleh approval.',output:'Trading plan terstruktur dan dapat ditinjau sebelum aksi manual.'},
+      {name:'RISIKO',kicker:'PHASE 04 / PROTECTION',tag:'HARD-GATE CONTROL',icon:'risk',title:'Disiplin di atas keyakinan.',text:'Memeriksa saldo dan posisi Binance Spot, ukuran transaksi, exposure, total open risk, batas kerugian, likuiditas, serta status lock. Satu hard gate yang gagal cukup untuk memblokir entry.',output:'Keputusan kelayakan risiko yang eksplisit beserta alasan penolakan.'},
+      {name:'MONITOR',kicker:'PHASE 05 / CONTINUITY',tag:'ALWAYS-ON DESIGN',icon:'monitor',title:'Pasar berubah. Konteks ikut berubah.',text:'Dirancang mengawasi candle close, watchlist, pergerakan harga, berita, posisi, status risk lock, kesehatan data, dan masa berlaku sinyal secara terus-menerus, bersamaan dengan tahap lainnya.',output:'Perubahan status, event log, dan rancangan alert dashboard/Telegram.'},
+      {name:'KEPUTUSAN',kicker:'PHASE 06 / ACTIONABILITY',tag:'EXPLAINABLE OUTCOME',icon:'decision',title:'Tahu kapan bertindak — dan kapan tidak.',text:'Menghasilkan tiga kategori keputusan: EKSEKUSI untuk kandidat yang lolos seluruh pemeriksaan, PANTAU untuk peluang yang masih menunggu, dan LEWATI untuk setup yang tidak layak. Eksekusi tetap manual.',output:'Rekomendasi yang memiliki ID, alasan, parameter, status risiko, dan jejak audit.'}
+    ];
+
+    const tabs = Array.from(document.querySelectorAll('[data-stage]'));
+    function setStage(index, shouldFocus=false) {
+      if(!Number.isInteger(index) || index < 0 || index >= stages.length) return;
+      const data=stages[index];
+      tabs.forEach((tab,i)=>{const active=i===index;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;});
+      document.getElementById('stagePanel').setAttribute('aria-labelledby',`stageTab${index}`);
+      document.getElementById('stageKicker').textContent=data.kicker;
+      document.getElementById('stageTag').textContent=data.tag;
+      document.getElementById('stageTitle').textContent=data.title;
+      document.getElementById('stageText').textContent=data.text;
+      document.getElementById('stageOutput').textContent=data.output;
+      document.getElementById('stageIcon').innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${svgIcons[data.icon]}</svg>`;
+      if(shouldFocus)tabs[index].focus();
+    }
+    tabs.forEach((tab,i)=>{
+      tab.addEventListener('click',()=>setStage(i));
+      tab.addEventListener('keydown',event=>{
+        let next;
+        if(event.key==='ArrowRight'||event.key==='ArrowDown')next=(i+1)%tabs.length;
+        else if(event.key==='ArrowLeft'||event.key==='ArrowUp')next=(i+tabs.length-1)%tabs.length;
+        else if(event.key==='Home')next=0;
+        else if(event.key==='End')next=tabs.length-1;
+        else return;
+        event.preventDefault();setStage(next,true);
+      });
+    });
+
+    const menu=document.getElementById('navLinks');
+    const menuBtn=document.getElementById('menuBtn');
+    menuBtn.addEventListener('click',()=>{
+      const open=menu.classList.toggle('is-open');
+      menuBtn.setAttribute('aria-expanded',String(open));
+      menuBtn.setAttribute('aria-label',open?'Tutup menu navigasi':'Buka menu navigasi');
+    });
+    menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('is-open');menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Buka menu navigasi');}));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){menu.classList.remove('is-open');menuBtn.setAttribute('aria-expanded','false');}});
+
+    const progress=document.getElementById('scrollProgress');
+    let scrollTicking=false;
+    function updateProgress(){const full=document.documentElement.scrollHeight-window.innerHeight;progress.style.width=(full>0?Math.min(100,(window.scrollY/full)*100):0)+'%';scrollTicking=false;}
+    window.addEventListener('scroll',()=>{if(!scrollTicking){requestAnimationFrame(updateProgress);scrollTicking=true;}},{passive:true});
+    window.addEventListener('resize',updateProgress);
+    updateProgress();
+
+    if('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+      const observer=new IntersectionObserver((items,obs)=>{items.forEach(item=>{if(item.isIntersecting){item.target.classList.add('in-view');obs.unobserve(item.target);}});},{threshold:.07,rootMargin:'0px 0px -20px 0px'});
+      document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    }else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in-view'));}
+
+    let toastHandle;
+    function toast(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('visible');clearTimeout(toastHandle);toastHandle=setTimeout(()=>el.classList.remove('visible'),3400);}
+    async function copyText(text){
+      try{if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(text);return true;}}
+      catch(e){}
+      const temporary=document.createElement('textarea');temporary.value=text;temporary.style.position='fixed';temporary.style.left='-9999px';document.body.appendChild(temporary);temporary.select();let ok=false;
+      try{ok=document.execCommand('copy');}catch(e){}
+      temporary.remove();return ok;
+    }
+
+    const form=document.getElementById('inquiryForm');
+    const inquiryResult=document.getElementById('inquiryResult');
+    const inquiryDraft=document.getElementById('inquiryDraft');
+    form.addEventListener('submit',event=>{
+      event.preventDefault();
+      if(!form.reportValidity())return;
+      const name=document.getElementById('contactName').value.trim();
+      const email=document.getElementById('contactEmail').value.trim();
+      const intent=document.getElementById('contactIntent').value;
+      const notes=document.getElementById('contactNotes').value.trim();
+      const subject=`CTDS — Permintaan Diskusi: ${intent}`;
+      const body=`Halo tim CTDS,\n\nSaya ingin mendiskusikan Crypto Trading Decision System.\n\nNama: ${name}\nEmail: ${email}\nTopik: ${intent}\nKebutuhan/Pertanyaan: ${notes||'-'}\n\nTerima kasih.`;
+      inquiryDraft.value=`Subject: ${subject}\n\n${body}`;
+      inquiryResult.classList.add('visible');
+      if(CONTACT_EMAIL.trim()){
+        // Using mailto leaves sending with the visitor's own email application.
+        window.location.href=`mailto:${CONTACT_EMAIL.trim()}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        toast('Aplikasi email disiapkan. Periksa kembali sebelum mengirim.');
+      }else{
+        toast('Pesan siap. Salin untuk mengirim melalui kontak CTDS.');
+      }
+      inquiryResult.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});
+    });
+    document.getElementById('copyInquiry').addEventListener('click',async()=>{
+      const ok=await copyText(inquiryDraft.value);toast(ok?'Pesan berhasil disalin.':'Gagal menyalin otomatis. Silakan pilih dan salin teks secara manual.');
+    });
+    document.getElementById('copyrightYear').textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
